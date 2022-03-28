@@ -21,6 +21,7 @@
       import SoonmanagerSyncPlugin from './index.esm.js';
       import { GUI } from './gui.js';
       import { shimLight } from './shim.js';
+      import { useBoxProjectedEnvMap } from './BoxProjectedEnvMapHelper.js';
 
       const ssp = (window.ssp = new SoonSpace({
         el: '#view',
@@ -33,10 +34,10 @@
         },
         events: {
           modelClick(param) {
-            // console.log(param);
+            console.log(param);
           },
           selectPosition(p) {
-            console.log(p);
+            // console.log(p);
           },
         },
       }));
@@ -48,7 +49,7 @@
         zoomMinDistance: 0,
       });
 
-      ssp.openSky({
+      ssp.setSky({
         rayleigh: 2,
         elevation: 2,
         exposure: 0.6,
@@ -84,14 +85,23 @@
             loadSceneAllSuccess() {
               console.timeEnd('all');
 
+              ssp.updateAllShadow();
+
               const guiParams = {
                 firstPersonControls: false,
                 ray: true,
                 rayPosition: {
                   x: 0,
-                  y: 0,
+                  y: 5.5,
                   z: 0,
                 },
+                envMapPosition: {
+                  x: 0,
+                  y: 6,
+                  z: 0,
+                },
+                envMapSize: 20,
+                envMapIntensity: 1,
                 color: '#ffffff',
                 roughness: 0,
                 metalness: 0.15,
@@ -101,7 +111,7 @@
               const hall = ssp.getModelById(2146234866);
               const hallMesh = hall.getObjectByName('对象007');
 
-              const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(1024, {
+              const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(2048, {
                 type: THREE.HalfFloatType,
               });
 
@@ -116,6 +126,34 @@
               hallMesh.material.roughness = guiParams.roughness;
               hallMesh.material.metalness = guiParams.metalness;
               hallMesh.material.needsUpdate = true;
+
+              const updateMaterial = () => {
+                const envMapPosition = new THREE.Vector3(
+                  guiParams.envMapPosition.x,
+                  guiParams.envMapPosition.y,
+                  guiParams.envMapPosition.z
+                ); // position of the env-map camera (where the env-map was generated)
+                const envMapSize = new THREE.Vector3(
+                  guiParams.envMapSize,
+                  guiParams.envMapSize,
+                  guiParams.envMapSize
+                ); // size of the room for which the env-map should be box-projected
+
+                hallMesh.material.onBeforeCompile = (shader) =>
+                  useBoxProjectedEnvMap(shader, envMapPosition, envMapSize);
+
+                hallMesh.material.customProgramCacheKey = () =>
+                  JSON.stringify(envMapPosition.toArray()) +
+                  JSON.stringify(envMapSize.toArray());
+
+                hallMesh.material.needsUpdate = true;
+
+                ssp.render();
+
+                console.log('update');
+              };
+
+              updateMaterial();
 
               const updateCubeCamera = () => {
                 cubeCamera.position.set(
@@ -185,6 +223,42 @@
                 .name('光线追踪位置z')
                 .onChange(() => {
                   updateCubeCamera();
+                });
+
+              gui
+                .add(guiParams.envMapPosition, 'x', -10, 10)
+                .name('env位置x')
+                .onChange(() => {
+                  updateMaterial();
+                });
+
+              gui
+                .add(guiParams.envMapPosition, 'y', -10, 10)
+                .name('env位置y')
+                .onChange(() => {
+                  updateMaterial();
+                });
+
+              gui
+                .add(guiParams.envMapPosition, 'z', -10, 10)
+                .name('env位置z')
+                .onChange(() => {
+                  updateMaterial();
+                });
+
+              gui
+                .add(guiParams, 'envMapSize', 0, 100)
+                .name('env缩放')
+                .onChange(() => {
+                  updateMaterial();
+                });
+
+              gui
+                .add(guiParams, 'envMapIntensity', 0, 5)
+                .name('env强度')
+                .onChange(() => {
+                  hallMesh.material.envMapIntensity = guiParams.envMapIntensity;
+                  ssp.render();
                 });
 
               gui
