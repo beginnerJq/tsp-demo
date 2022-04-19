@@ -29,7 +29,8 @@
           showInfo: false,
           showGrid: true,
           controls: {
-            enabledMousePointInteractive: true,
+            panSpeed: 1,
+            zoomMinDistance: -1,
           },
         },
         events: {
@@ -91,20 +92,20 @@
                 firstPersonControls: false,
                 ray: true,
                 rayPosition: {
-                  x: -4,
-                  y: 0.43,
-                  z: -6.6,
+                  x: -6.6,
+                  y: 1.66,
+                  z: -9.2,
                 },
                 envMapPosition: {
-                  x: -2.67,
-                  y: 2.5,
-                  z: -0.1,
+                  x: 1.4,
+                  y: 1.4,
+                  z: 1.66,
                 },
-                envMapSize: 47,
-                envMapIntensity: 0.37,
+                envMapSize: 58,
+                envMapIntensity: 0.31,
                 color: '#fcfcfc',
                 roughness: 0,
-                metalness: 0.2,
+                metalness: 0.4,
                 shadow: true,
               };
 
@@ -211,21 +212,21 @@
                 });
 
               gui
-                .add(guiParams.rayPosition, 'x', -10, 10)
+                .add(guiParams.rayPosition, 'x', -50, 50)
                 .name('反射源位置x')
                 .onChange(() => {
                   updateCubeCamera();
                 });
 
               gui
-                .add(guiParams.rayPosition, 'y', -10, 10)
+                .add(guiParams.rayPosition, 'y', -50, 50)
                 .name('反射源位置y')
                 .onChange(() => {
                   updateCubeCamera();
                 });
 
               gui
-                .add(guiParams.rayPosition, 'z', -10, 10)
+                .add(guiParams.rayPosition, 'z', -50, 50)
                 .name('反射源位置z')
                 .onChange(() => {
                   updateCubeCamera();

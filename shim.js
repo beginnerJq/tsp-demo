@@ -9,16 +9,18 @@ export const shimLight = (ssp) => {
   ambientLight.visible = false;
   hemisphereLight.visible = false;
 
+  directionalLight.shadow.bias = -0.005;
+
   ssp.setDirectionalLight({
     id: 'defaultDirectionalLight',
     name: 'defaultDirectionalLight',
     position: {
       x: 24,
-      y: 20,
+      y: 40,
       z: 25,
     },
     target: {
-      x: 0,
+      x: -20,
       y: -20,
       z: 0,
     },
