@@ -124,6 +124,7 @@
 
               hallMesh.material.envMap = cubeRenderTarget.texture;
               hallMesh.material.color = new THREE.Color(guiParams.color);
+              // hallMesh.material.map = null;
               hallMesh.material.roughness = guiParams.roughness;
               hallMesh.material.metalness = guiParams.metalness;
               hallMesh.material.needsUpdate = true;
@@ -150,11 +151,9 @@
                 hallMesh.material.needsUpdate = true;
 
                 ssp.render();
-
-                console.log('update');
               };
 
-              updateMaterial();
+              // updateMaterial();
 
               const updateCubeCamera = () => {
                 cubeCamera.position.set(
@@ -232,33 +231,33 @@
                   updateCubeCamera();
                 });
 
-              gui
-                .add(guiParams.envMapPosition, 'x', -10, 10)
-                .name('env位置x')
-                .onChange(() => {
-                  updateMaterial();
-                });
+              // gui
+              //   .add(guiParams.envMapPosition, 'x', -10, 10)
+              //   .name('env位置x')
+              //   .onChange(() => {
+              //     updateMaterial();
+              //   });
 
-              gui
-                .add(guiParams.envMapPosition, 'y', -10, 10)
-                .name('env位置y')
-                .onChange(() => {
-                  updateMaterial();
-                });
+              // gui
+              //   .add(guiParams.envMapPosition, 'y', -10, 10)
+              //   .name('env位置y')
+              //   .onChange(() => {
+              //     updateMaterial();
+              //   });
 
-              gui
-                .add(guiParams.envMapPosition, 'z', -10, 10)
-                .name('env位置z')
-                .onChange(() => {
-                  updateMaterial();
-                });
+              // gui
+              //   .add(guiParams.envMapPosition, 'z', -10, 10)
+              //   .name('env位置z')
+              //   .onChange(() => {
+              //     updateMaterial();
+              //   });
 
-              gui
-                .add(guiParams, 'envMapSize', 0, 100)
-                .name('env缩放')
-                .onChange(() => {
-                  updateMaterial();
-                });
+              // gui
+              //   .add(guiParams, 'envMapSize', 0, 100)
+              //   .name('env缩放')
+              //   .onChange(() => {
+              //     updateMaterial();
+              //   });
 
               gui
                 .add(guiParams, 'envMapIntensity', 0, 5)
