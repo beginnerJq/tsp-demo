@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="view"
+      style="width: 100vw; height: 100vh; background: rgb(48, 55, 53)"
+    ></div>
+
+    <script type="module">
+      import SoonSpace from './dist/index.esm.js';
+      import SoonmanagerSyncPlugin from '../index.esm.js';
+
+      const ssp = (window.ssp = new SoonSpace({
+        el: '#view',
+        options: {
+          // showInfo: true,
+          // showStats: true,
+          showGrid: false,
+          // hoverEnabled: true,
+          // levelEnabled: true,
+          controls: {
+            panSpeed: 1,
+            zoomMinStepDistance: 3,
+          },
+          background: {
+            alpha: true,
+          },
+        },
+        events: {
+          modelClick(param) {
+            console.log(param);
+          },
+          modelHover(param) {
+            console.log(param);
+          },
+          selectPosition(p) {
+            // console.log(p);
+          },
+        },
+      }));
+
+      // ssp.viewport.scene.autoUpdate = false
+
+      const ambientLight = ssp.getLightById('defaultAmbientLight'),
+        hemisphereLight = ssp.getLightById('defaultHemisphereLight');
+      const directionalLight = ssp.getLightById('defaultDirectionalLight');
+
+      ambientLight.visible = false;
+      hemisphereLight.visible = false;
+      directionalLight.visible = false;
+
+      ssp.setControlsOptions({
+        zoomMinDistance: 0,
+      });
+
+      ssp.setColorSpace('sRGB');
+
+      ssp.setEnvironment();
+
+      ssp.setModelDracoDecoderPath('./dist/lib/draco/');
+
+      const soonmanagerSync = (window.soonmanagerSync = ssp.registerPlugin(
+        SoonmanagerSyncPlugin,
+        'soonmanagerSync'
+      ));
+
+      soonmanagerSync.setBaseUrl('./tsp-0507/');
+
+      // soonmanagerSync.setGlobalSetting();
+
+      const loadloadScene = () => {
+        console.time('all');
+        console.time('main');
+
+        soonmanagerSync
+          .loadScene({
+            isIdleRest: true,
+            loadSceneAllSuccess() {
+              console.timeEnd('all');
+
+              console.time('merge');
+
+              // instanced mesh
+              const meshsMap = new Map();
+
+              // classify mesh
+              ssp.viewport.scene.traverse((mesh) => {
+                if (mesh.isMesh) {
+                  const { geometry } = mesh;
+                  const classifyMesh = meshsMap.get(geometry);
+                  classifyMesh
+                    ? classifyMesh.push(mesh)
+                    : meshsMap.set(geometry, [mesh]);
+                }
+              });
+
+              // generate instanced mesh
+              meshsMap.forEach((meshes) => {
+                const [mesh] = meshes;
+                const count = meshes.length;
+                const geometry = mesh.geometry.clone();
+                const material = mesh.material.clone();
+
+                const instanceMesh = new THREE.InstancedMesh(
+                  geometry,
+                  material,
+                  count
+                );
+
+                for (let i = 0; i < count; i++) {
+                  instanceMesh.setMatrixAt(i, meshes[i].matrixWorld);
+                }
+
+                ssp.addObject(instanceMesh, ssp.viewport.scene);
+              });
+
+              ssp.manager.scene.removeFromParent();
+
+              console.timeEnd('merge');
+            },
+          })
+          .then(() => {
+            console.timeEnd('main');
+          });
+      };
+
+      loadloadScene();
+    </script>
+  </body>
+</html>
