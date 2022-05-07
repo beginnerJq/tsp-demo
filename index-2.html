@@ -9,6 +9,17 @@
       * {
         margin: 0;
       }
+      #loading {
+        display: grid;
+        place-items: center;
+        position: fixed;
+        background: rgba(0, 0, 0, 0.4);
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        color: white;
+      }
     </style>
   </head>
 
@@ -17,6 +28,9 @@
       id="view"
       style="width: 100vw; height: 100vh; background: rgb(48, 55, 53)"
     ></div>
+    <div id="loading">
+      <em>努力加载中...</em>
+    </div>
 
     <script type="module">
       import SoonSpace from './dist/index.esm.js';
@@ -127,6 +141,8 @@
               });
 
               ssp.manager.scene.removeFromParent();
+
+              document.querySelector('#loading').style.display = 'none'
 
               console.timeEnd('merge');
             },
