@@ -26,11 +26,12 @@
       const ssp = (window.ssp = new SoonSpace({
         el: '#view',
         options: {
+          // background:{},
           showInfo: false,
           showGrid: true,
           controls: {
-            panSpeed: 1,
-            zoomMinDistance: -1,
+            // panSpeed: 1,
+            zoomMinDistance: 0.01,
           },
         },
         events: {
@@ -46,21 +47,20 @@
       // 灯光调整
       const directionalLight = shimLight(ssp);
 
-      ssp.setControlsOptions({
-        zoomMinDistance: 0,
-      });
-
       ssp.setSky({
         rayleigh: 2,
         elevation: 2,
-        exposure: 0.6,
+        exposure: 0.7,
       });
 
-      ssp.setColorSpace('sRGB');
-
-      ssp.setEnvironment();
-
       ssp.setModelDracoDecoderPath('./dist/lib/draco/');
+
+      // bloom pass
+      ssp.setBloom({
+        threshold: 2,
+        strength: 1.5,
+        radius: 0.2,
+      });
 
       const firstPersonControls = ssp.registerPlugin(
         FirstPersonControlsPlugin,
@@ -109,6 +109,40 @@
                 shadow: true,
               };
 
+              // bloom
+              const allLights = ssp.getModelByName('BHY-0606/20');
+
+              const canvas3D = ssp.createCanvas3D({
+                id: 'test_canvas',
+                name: 'test_canvas',
+                position: {
+                  x: 0,
+                  y: 0,
+                  z: 0,
+                },
+                points: allLights.map((light, id) => ({
+                  id: 'point_' + id,
+                  name: 'point_' + id,
+                  radius: 0.06,
+                  position: {
+                    x: light.position.x,
+                    y: light.position.y,
+                    z: light.position.z,
+                  },
+                  color: '#ff0',
+                })),
+              });
+
+              const allPoints = canvas3D.children;
+
+              allPoints.forEach((point) => {
+                const { material } = point;
+
+                material.color.multiplyScalar(4);
+                material.toneMapped = false;
+              });
+
+              // env map
               const hall = ssp.getModelById(2146234866);
               const hallMesh = hall.getObjectByName('对象007');
 
@@ -124,36 +158,9 @@
 
               hallMesh.material.envMap = cubeRenderTarget.texture;
               hallMesh.material.color = new THREE.Color(guiParams.color);
-              // hallMesh.material.map = null;
               hallMesh.material.roughness = guiParams.roughness;
               hallMesh.material.metalness = guiParams.metalness;
               hallMesh.material.needsUpdate = true;
-
-              const updateMaterial = () => {
-                const envMapPosition = new THREE.Vector3(
-                  guiParams.envMapPosition.x,
-                  guiParams.envMapPosition.y,
-                  guiParams.envMapPosition.z
-                ); // position of the env-map camera (where the env-map was generated)
-                const envMapSize = new THREE.Vector3(
-                  guiParams.envMapSize,
-                  guiParams.envMapSize,
-                  guiParams.envMapSize
-                ); // size of the room for which the env-map should be box-projected
-
-                hallMesh.material.onBeforeCompile = (shader) =>
-                  boxProjectedEnvMap(shader, envMapPosition, envMapSize);
-
-                hallMesh.material.customProgramCacheKey = () =>
-                  JSON.stringify(envMapPosition.toArray()) +
-                  JSON.stringify(envMapSize.toArray());
-
-                hallMesh.material.needsUpdate = true;
-
-                ssp.render();
-              };
-
-              // updateMaterial();
 
               const updateCubeCamera = () => {
                 cubeCamera.position.set(
