@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="view" style="width: 100vw; height: 100vh"></div>
+
+    <script type="module">
+      import SoonSpace from './dist/index.esm.js';
+      import SoonmanagerSyncPlugin from './index.esm.js';
+
+      const ssp = (window.ssp = new SoonSpace({
+        el: '#view',
+        options: {
+          showInfo: true,
+          showGrid: true,
+          controls: {
+            enabledMousePointInteractive: true,
+          },
+        },
+        events: {
+          modelClick(param) {
+            const { target } = param;
+
+            console.log(param);
+          },
+          selectPosition(p) {
+            console.log(p);
+          },
+        },
+      }));
+
+      ssp.setModelDracoDecoderPath('./dist/lib/draco/');
+
+      const soonmanagerSync = (window.soonmanagerSync = ssp.registerPlugin(
+        SoonmanagerSyncPlugin,
+        'soonmanagerSync'
+      ));
+
+      soonmanagerSync.setBaseUrl('./tsp-0520/');
+
+      const directionalLight = ssp.createDirectionalLight({
+        id: 'defaultDirectionalLight',
+        name: 'defaultDirectionalLight',
+        position: {
+          x: 24,
+          y: 40,
+          z: 25,
+        },
+        target: {
+          x: -20,
+          y: -20,
+          z: 0,
+        },
+        openShadow: true,
+        // shadowAutoUpdate: true,
+        mapSize: 6000,
+        // color: '#f60',
+      });
+
+      const loadloadScene = () => {
+        console.time('all');
+        console.time('main');
+
+        soonmanagerSync
+          .loadScene({
+            // targetLevel: 1,
+            // targetId: [2146195707, 2146195708],
+            isIdleRest: true,
+            loadSceneAllSuccess() {
+              ssp.updateAllShadow();
+              console.log('all success');
+              console.timeEnd('all');
+            },
+          })
+          .then(() => {
+            console.timeEnd('main');
+            // ssp.flyMainViewpoint();
+          });
+      };
+
+      loadloadScene();
+    </script>
+  </body>
+</html>
