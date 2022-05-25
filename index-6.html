@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body style="margin: 0">
+    <div
+      id="view"
+      style="position: absolute; width: 100vw; height: 100vh"
+    ></div>
+  </body>
+  <script type="module">
+    import SoonSpace from './dist_compress/index.esm.js';
+
+    const ssp = (window.ssp = new SoonSpace({
+      el: '#view',
+      options: {
+        showGrid: true,
+        showInfo: true,
+        closeInfoLog: true,
+        showViewHelper: true,
+        controls: {
+          zoomSpeed: 1,
+          zoomMinDistance: 3,
+          // zoomMaxDistance: 100,
+          enabledMousePointInteractive: true,
+        },
+        // background: {},
+      },
+      events: {
+        modelClick(p) {
+          console.log('click', p);
+        },
+        modelDblClick(p) {
+          console.log('db click');
+        },
+        modelRightClick(p) {
+          console.log('right click');
+        },
+        selectPosition(p) {
+          console.log(p);
+        },
+      },
+    }));
+
+    ssp.setColorSpace('Linear');
+
+    ssp.setModelDracoDecoderPath('./dist/lib/draco/');
+
+    const model = await ssp.loadModel({
+      id: 'dat',
+      url: './公共区电扶梯aa-out/4878901.sbmx',
+      rotation: {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+    });
+
+    ssp.flyToObj(model, 'leftFrontTop');
+  </script>
+</html>
