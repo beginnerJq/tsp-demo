@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,6 +18,7 @@
     <script type="module">
       import SoonSpace from './dist/index.esm.js';
       import SoonmanagerSyncPlugin from './index.esm.js';
+      import { GUI } from './gui.js';
 
       const ssp = (window.ssp = new SoonSpace({
         el: '#view',
@@ -50,6 +50,9 @@
 
       soonmanagerSync.setBaseUrl('./tsp-0520/');
 
+      /**
+       * directional light
+       */
       const directionalLight = ssp.createDirectionalLight({
         id: 'defaultDirectionalLight',
         name: 'defaultDirectionalLight',
@@ -68,6 +71,45 @@
         mapSize: 6000,
         // color: '#f60',
       });
+
+      const params = {
+        colorSpace: 'Linear',
+        type: 'Linear',
+        exposure: 0.8,
+      };
+
+      const gui = new GUI();
+
+      const colorSpaceChangeHandle = () => {
+        ssp.setColorSpace(params.colorSpace);
+      };
+
+      colorSpaceChangeHandle();
+
+      gui
+        .add(params, 'colorSpace', ['sRGB', 'Linear'])
+        .name('颜色空间')
+        .onChange(colorSpaceChangeHandle);
+
+      const toneMappingChangeHandle = () => {
+        ssp.setToneMapping(params);
+      };
+
+      gui
+        .add(params, 'type', [
+          'None',
+          'Linear',
+          'Reinhard',
+          'Cineon',
+          'ACESFilmic',
+        ])
+        .name('色调映射')
+        .onChange(toneMappingChangeHandle);
+
+      gui
+        .add(params, 'exposure', 0, 2)
+        .name('曝光度')
+        .onChange(toneMappingChangeHandle);
 
       const loadloadScene = () => {
         console.time('all');
