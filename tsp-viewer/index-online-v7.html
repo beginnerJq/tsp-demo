@@ -40,8 +40,8 @@
       var config = {
         extensions: [
           'Autodesk.Viewing.ZoomWindow',
-          // "Autodesk.AEC.Minimap3DExtension",
-          //   'Autodesk.AEC.LevelsExtension',
+          // 'Autodesk.AEC.Minimap3DExtension',
+          'Autodesk.AEC.LevelsExtension',
         ],
         disabledExtensions: {
           measure: false,
@@ -83,21 +83,17 @@
         var documentPath = decodeURIComponent(
           setting.offlineResourcePrefix + '/manifest-model.json'
         );
-
         Autodesk.Viewing.Document.load(documentPath, (doc) => {
           doc.downloadAecModelData();
 
           var viewable = doc.getRoot().getDefaultGeometry();
           var options = {};
-
           viewer.loadDocumentNode(doc, viewable, options).then(onLoadSuccess);
 
           viewer.addEventListener(
             Autodesk.Viewing.TEXTURES_LOADED_EVENT,
             () => {
-              console.info('textures loaded');
-
-            //   viewer.getExtension('Autodesk.BimWalk').activate();
+              viewer.getExtension('Autodesk.BimWalk').activate();
             }
           );
         });

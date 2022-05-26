@@ -4,14 +4,14 @@
   "type": "manifest",
   "progress": "complete",
   "status": "success",
-  "hasThumbnail": "true",
+  "hasThumbnail": "false",
   "region": "US",
   "derivatives": [
     {
       "outputType": "svf",
       "status": "success",
       "name": "input.rvt",
-      "hasThumbnail": "true",
+      "hasThumbnail": "false",
       "progress": "complete",
       "children": [
         {
@@ -20,16 +20,16 @@
           "status": "success",
           "mime": "application/json",
           "urn": "./AECModelData.json",
-          "guid": "d88cc392-d3dd-4eb1-98d7-0a0ef48e6564"
+          "guid": "4a5a002a-ffa2-489c-a9a4-ea39b03b114a"
         },
         {
           "type": "geometry",
           "role": "3d",
           "status": "success",
           "name": "3d",
-          "hasThumbnail": "true",
+          "hasThumbnail": "false",
           "progress": "complete",
-          "guid": "26f342d1-fdd4-456a-97bf-c6bc0aba5502",
+          "guid": "97cccb52-18e5-48ff-a058-9785466bcc8c",
           "children": [
             {
               "type": "view",
@@ -60,89 +60,10 @@
               "mime": "application/autodesk-svf",
               "urn": "./3d.svf",
               "progress": "graphics",
-              "guid": "25f85747-737d-4874-a3bd-3de35c304301"
-            },
-            {
-              "type": "resource",
-              "role": "thumbnail",
-              "status": "success",
-              "mime": "image/png",
-              "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb100.png",
-              "resolution": [
-                100,
-                100
-              ],
-              "guid": "898fa488-cb56-4c08-b3a3-b31eee39b804"
-            },
-            {
-              "type": "resource",
-              "role": "thumbnail",
-              "status": "success",
-              "mime": "image/png",
-              "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb200.png",
-              "resolution": [
-                200,
-                200
-              ],
-              "guid": "ff0067ae-d8c5-4584-93dc-3f20735e965f"
-            },
-            {
-              "type": "resource",
-              "role": "thumbnail",
-              "status": "success",
-              "mime": "image/png",
-              "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb400.png",
-              "resolution": [
-                400,
-                400
-              ],
-              "guid": "cace65d8-f3ad-440b-afd4-f59b0d0ba2ac"
+              "guid": "f9be388c-a51e-42e5-bafc-f5d11a520ca3"
             }
           ],
           "viewableID": "94f416ba-3eca-43e2-88a9-55b82462c814-00278ac8"
-        }
-      ]
-    },
-    {
-      "outputType": "thumbnail",
-      "status": "success",
-      "progress": "complete",
-      "children": [
-        {
-          "type": "resource",
-          "role": "thumbnail",
-          "status": "success",
-          "mime": "image/png",
-          "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb100.png",
-          "resolution": [
-            100,
-            100
-          ],
-          "guid": "ef1d0e25-d64d-4f82-b39c-a0fd76b31d43"
-        },
-        {
-          "type": "resource",
-          "role": "thumbnail",
-          "status": "success",
-          "mime": "image/png",
-          "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb200.png",
-          "resolution": [
-            200,
-            200
-          ],
-          "guid": "89ddbd04-7bc4-4d34-8ab6-d0d0bd7b7114"
-        },
-        {
-          "type": "resource",
-          "role": "thumbnail",
-          "status": "success",
-          "mime": "image/png",
-          "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb400.png",
-          "resolution": [
-            400,
-            400
-          ],
-          "guid": "948c21ee-5188-4d43-8268-c6a8b2163555"
         }
       ]
     }
