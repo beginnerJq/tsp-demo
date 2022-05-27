@@ -20,7 +20,7 @@
           "status": "success",
           "mime": "application/json",
           "urn": "./AECModelData.json",
-          "guid": "4a5a002a-ffa2-489c-a9a4-ea39b03b114a"
+          "guid": "fca1c67d-54c4-44d6-ac90-5154f9ce0a09"
         },
         {
           "type": "geometry",
@@ -29,7 +29,7 @@
           "name": "3d",
           "hasThumbnail": "false",
           "progress": "complete",
-          "guid": "97cccb52-18e5-48ff-a058-9785466bcc8c",
+          "guid": "453c8453-46e9-4621-9fff-a6a82585406c",
           "children": [
             {
               "type": "view",
@@ -60,7 +60,7 @@
               "mime": "application/autodesk-svf",
               "urn": "./3d.svf",
               "progress": "graphics",
-              "guid": "f9be388c-a51e-42e5-bafc-f5d11a520ca3"
+              "guid": "97607617-ee81-4983-8ac3-aee98746bf72"
             }
           ],
           "viewableID": "94f416ba-3eca-43e2-88a9-55b82462c814-00278ac8"

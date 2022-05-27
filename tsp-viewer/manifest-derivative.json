@@ -2,7 +2,7 @@
   "guid": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0",
   "success": "100%",
   "owner": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0",
-  "startedAt": "Thu, 26 May 2022 21:18:09 GMT",
+  "startedAt": "Fri, 27 May 2022 01:39:09 GMT",
   "urn": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0",
   "type": "design",
   "progress": "complete",
@@ -18,7 +18,7 @@
       "hasThumbnail": "false",
       "urn": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0",
       "progress": "complete",
-      "guid": "53f4f701-b002-4861-ac71-861e635dd094",
+      "guid": "c3dabfe9-c5ef-44c1-9155-22c07ffd3c8a",
       "properties": {},
       "success": "100%",
       "children": [
@@ -51,7 +51,7 @@
           "status": "success",
           "mime": "application/json",
           "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/AECModelData.json",
-          "guid": "43e19ef4-421f-4295-a4f2-1f2b9d66e437"
+          "guid": "0c815af4-c5e2-4f45-910c-2e99ce084e97"
         },
         {
           "type": "folder",
@@ -59,7 +59,7 @@
           "name": "视图",
           "hasThumbnail": "false",
           "progress": "complete",
-          "guid": "7b406563-cfcc-45e7-8415-d23ddcfe822e",
+          "guid": "d8e08688-86a0-467d-8a11-14dfa86412ea",
           "success": "100%",
           "children": [
             {
@@ -68,7 +68,7 @@
               "name": "三维视图",
               "hasThumbnail": "false",
               "progress": "complete",
-              "guid": "b55aa3f3-a59d-4e6e-bcd2-4b5188c710d2",
+              "guid": "51b05d7c-eaa7-43e1-a443-5e7e8d6dcfab",
               "success": "100%",
               "children": [
                 {
@@ -78,7 +78,7 @@
                   "name": "3d",
                   "hasThumbnail": "false",
                   "progress": "complete",
-                  "guid": "97cccb52-18e5-48ff-a058-9785466bcc8c",
+                  "guid": "453c8453-46e9-4621-9fff-a6a82585406c",
                   "success": "100%",
                   "children": [
                     {
@@ -110,11 +110,11 @@
                       "mime": "application/autodesk-svf",
                       "urn": "./3d.svf",
                       "progress": "graphics",
-                      "guid": "f9be388c-a51e-42e5-bafc-f5d11a520ca3",
-                      "size": 149962949
+                      "guid": "97607617-ee81-4983-8ac3-aee98746bf72",
+                      "size": 96354497
                     }
                   ],
-                  "size": 149962949,
+                  "size": 96354497,
                   "viewableID": "94f416ba-3eca-43e2-88a9-55b82462c814-00278ac8"
                 }
               ]

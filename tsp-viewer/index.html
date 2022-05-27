@@ -50,6 +50,9 @@
         memory: {
           limit: 32 * 1024, //32 GB
         },
+        // profileSettings: {
+        //   edgeRendering: false,
+        // },
       };
 
       var setting = {
@@ -72,6 +75,7 @@
           element,
           config
         ));
+
         //var viewer = window.viewer = new Autodesk.Viewing.Viewer3D(element, config);
 
         var startedCode = viewer.start();
@@ -102,11 +106,19 @@
       function onLoadSuccess(event) {
         console.log('success');
 
+        // profile
+        viewer.profile.settings.edgeRendering = false;
+
+        viewer.setProfile(viewer.profile);
+
+        viewer.run();
+
+        // loading
         const loadingEl = document.querySelector('#loading');
 
         setTimeout(() => {
           loadingEl.style.display = 'none';
-        }, 1000);
+        }, 1500);
       }
     </script>
   </body>
