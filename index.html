@@ -76,6 +76,32 @@
 
       const gui = new GUI();
 
+      // bloom
+      const bloomGui = gui.addFolder('Unreal Bloom');
+
+      bloomGui.open();
+
+      const bloomParams = {
+        strength: 1.5,
+        radius: 1,
+      };
+
+      const handleBloomChange = (value) => {
+        ssp.setBloom({ ...bloomParams, threshold: 2 });
+      };
+
+      handleBloomChange();
+
+      bloomGui
+        .add(bloomParams, 'strength', 0, 5, 0.01)
+        .name('泛光强度')
+        .onChange(handleBloomChange);
+
+      bloomGui
+        .add(bloomParams, 'radius', 0, 1, 0.01)
+        .name('泛光半径')
+        .onChange(handleBloomChange);
+
       const loadloadScene = () => {
         console.time('all');
         console.time('main');
@@ -129,7 +155,7 @@
                     y: light.position.y,
                     z: light.position.z,
                   },
-                  color: '#ff0',
+                  color: '#fff',
                 })),
               });
 
@@ -237,34 +263,6 @@
                 .onChange(() => {
                   updateCubeCamera();
                 });
-
-              // gui
-              //   .add(guiParams.envMapPosition, 'x', -10, 10)
-              //   .name('env位置x')
-              //   .onChange(() => {
-              //     updateMaterial();
-              //   });
-
-              // gui
-              //   .add(guiParams.envMapPosition, 'y', -10, 10)
-              //   .name('env位置y')
-              //   .onChange(() => {
-              //     updateMaterial();
-              //   });
-
-              // gui
-              //   .add(guiParams.envMapPosition, 'z', -10, 10)
-              //   .name('env位置z')
-              //   .onChange(() => {
-              //     updateMaterial();
-              //   });
-
-              // gui
-              //   .add(guiParams, 'envMapSize', 0, 100)
-              //   .name('env缩放')
-              //   .onChange(() => {
-              //     updateMaterial();
-              //   });
 
               gui
                 .add(guiParams, 'envMapIntensity', 0, 5)
